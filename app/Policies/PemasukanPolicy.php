@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\pemasukan;
+use App\Models\Pemasukan;
 use Illuminate\Auth\Access\Response;
 
 class PemasukanPolicy
@@ -19,7 +19,7 @@ class PemasukanPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, pemasukan $pemasukan): bool
+    public function view(User $user, Pemasukan $pemasukan): bool
     {
         return false;
     }
@@ -35,7 +35,7 @@ class PemasukanPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, pemasukan $pemasukan): bool
+    public function update(User $user, Pemasukan $pemasukan): bool
     {
         return false;
     }
@@ -43,7 +43,7 @@ class PemasukanPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, pemasukan $pemasukan): bool
+    public function delete(User $user, Pemasukan $pemasukan): bool
     {
         return false;
     }
@@ -51,7 +51,7 @@ class PemasukanPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, pemasukan $pemasukan): bool
+    public function restore(User $user, Pemasukan $pemasukan): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class PemasukanPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, pemasukan $pemasukan): bool
+    public function forceDelete(User $user, Pemasukan $pemasukan): bool
     {
         return false;
     }

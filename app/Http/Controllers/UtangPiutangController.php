@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\utang_piutang;
+use App\Models\UtangPiutang;
 use App\Http\Requests\Storeutang_piutangRequest;
 use App\Http\Requests\Updateutang_piutangRequest;
 
@@ -35,7 +35,7 @@ class UtangPiutangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(utang_piutang $utang_piutang)
+    public function show(UtangPiutang $utangPiutang)
     {
         //
     }
@@ -43,7 +43,7 @@ class UtangPiutangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(utang_piutang $utang_piutang)
+    public function edit(UtangPiutang $utangPiutang)
     {
         //
     }
@@ -51,7 +51,7 @@ class UtangPiutangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Updateutang_piutangRequest $request, utang_piutang $utang_piutang)
+    public function update(Updateutang_piutangRequest $request, UtangPiutang $utangPiutang)
     {
         //
     }
@@ -59,7 +59,7 @@ class UtangPiutangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(utang_piutang $utang_piutang)
+    public function destroy(UtangPiutang $utangPiutang)
     {
         //
     }

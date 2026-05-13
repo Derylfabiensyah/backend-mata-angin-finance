@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\utang_piutang;
+use App\Models\UtangPiutang;
 use Illuminate\Auth\Access\Response;
 
 class UtangPiutangPolicy
@@ -19,7 +19,7 @@ class UtangPiutangPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, utang_piutang $utangPiutang): bool
+    public function view(User $user, UtangPiutang $utangPiutang): bool
     {
         return false;
     }
@@ -35,7 +35,7 @@ class UtangPiutangPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, utang_piutang $utangPiutang): bool
+    public function update(User $user, UtangPiutang $utangPiutang): bool
     {
         return false;
     }
@@ -43,7 +43,7 @@ class UtangPiutangPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, utang_piutang $utangPiutang): bool
+    public function delete(User $user, UtangPiutang $utangPiutang): bool
     {
         return false;
     }
@@ -51,7 +51,7 @@ class UtangPiutangPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, utang_piutang $utangPiutang): bool
+    public function restore(User $user, UtangPiutang $utangPiutang): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class UtangPiutangPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, utang_piutang $utangPiutang): bool
+    public function forceDelete(User $user, UtangPiutang $utangPiutang): bool
     {
         return false;
     }

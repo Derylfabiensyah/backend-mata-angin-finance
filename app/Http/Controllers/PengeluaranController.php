@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pengeluaran;
+use App\Models\Pengeluaran;
 use App\Http\Requests\StorepengeluaranRequest;
 use App\Http\Requests\UpdatepengeluaranRequest;
 
@@ -35,7 +35,7 @@ class PengeluaranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(pengeluaran $pengeluaran)
+    public function show(Pengeluaran $pengeluaran)
     {
         //
     }
@@ -43,7 +43,7 @@ class PengeluaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(pengeluaran $pengeluaran)
+    public function edit(Pengeluaran $pengeluaran)
     {
         //
     }
@@ -51,7 +51,7 @@ class PengeluaranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatepengeluaranRequest $request, pengeluaran $pengeluaran)
+    public function update(UpdatepengeluaranRequest $request, Pengeluaran $pengeluaran)
     {
         //
     }
@@ -59,7 +59,7 @@ class PengeluaranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(pengeluaran $pengeluaran)
+    public function destroy(Pengeluaran $pengeluaran)
     {
         //
     }

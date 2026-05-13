@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\pengeluaran;
+use App\Models\Pengeluaran;
 use Illuminate\Auth\Access\Response;
 
 class PengeluaranPolicy
@@ -19,7 +19,7 @@ class PengeluaranPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, pengeluaran $pengeluaran): bool
+    public function view(User $user, Pengeluaran $pengeluaran): bool
     {
         return false;
     }
@@ -35,7 +35,7 @@ class PengeluaranPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, pengeluaran $pengeluaran): bool
+    public function update(User $user, Pengeluaran $pengeluaran): bool
     {
         return false;
     }
@@ -43,7 +43,7 @@ class PengeluaranPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, pengeluaran $pengeluaran): bool
+    public function delete(User $user, Pengeluaran $pengeluaran): bool
     {
         return false;
     }
@@ -51,7 +51,7 @@ class PengeluaranPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, pengeluaran $pengeluaran): bool
+    public function restore(User $user, Pengeluaran $pengeluaran): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class PengeluaranPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, pengeluaran $pengeluaran): bool
+    public function forceDelete(User $user, Pengeluaran $pengeluaran): bool
     {
         return false;
     }

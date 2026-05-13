@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class utang_piutang extends Model
+class UtangPiutang extends Model
 {
     use HasFactory;
 
-    protected $table = 'utang_piutang';
+    protected $table = 'utang_piutangs';
 
     protected $fillable = [
         'nama_customer',
