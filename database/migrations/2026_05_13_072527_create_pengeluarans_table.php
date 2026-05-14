@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_barang');
             $table->bigInteger('nominal');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->date('tanggal');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
