@@ -12,13 +12,11 @@ class UtangPiutang extends Model
     protected $table = 'utang_piutangs';
 
     protected $fillable = [
-        'nama_customer',
-        'jenis',
+        'nama',
+        'tipe',
         'total_tagihan',
         'dp',
         'sisa_pembayaran',
-        'tanggal_dp',
-        'tanggal_pelunasan',
         'status',
         'keterangan',
         'created_by',

@@ -6,32 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('utang_piutangs', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_customer');
-            $table->string('jenis');
+            $table->string('nama');
+            $table->enum('tipe', ['customer', 'supplier']);
             $table->bigInteger('total_tagihan');
-            $table->bigInteger('dp');
-            $table->bigInteger('sisa_pembayaran');
-            $table->date('tanggal_dp');
-            $table->date('tanggal_pelunasan');
-            $table->string('status');
-            $table->text('keterangan');
-            $table->unsignedBigInteger('created_by');
+            $table->bigInteger('dp')->default(0);
+            $table->bigInteger('sisa_pembayaran')->default(0);
+            $table->enum('status', ['belum_lunas', 'lunas'])->default('belum_lunas');
+            $table->text('keterangan')->nullable();
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('utang_piutangs');
