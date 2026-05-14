@@ -44,6 +44,7 @@ class UtangPiutangController extends Controller
 
             $dp = $request->dp ?? 0;
             $sisaPembayaran = $request->total_tagihan - $dp;
+            $status = $sisaPembayaran <= 0 ? 'lunas' : 'belum_lunas';
 
             $utangPiutang = UtangPiutang::create([
                 'nama' => $request->nama,
@@ -51,7 +52,7 @@ class UtangPiutangController extends Controller
                 'total_tagihan' => $request->total_tagihan,
                 'dp' => $dp,
                 'sisa_pembayaran' => $sisaPembayaran,
-                'status' => $request->status ?? 'belum_lunas',
+                'status' => $status,
                 'keterangan' => $request->keterangan,
                 'created_by' => auth()->id(),
             ]);
@@ -97,31 +98,33 @@ class UtangPiutangController extends Controller
     public function update(Request $request, $id)
     {
         try {
+
             $utangPiutang = UtangPiutang::findOrFail($id);
-            
+
             $validated = $request->validate([
                 'nama' => 'sometimes|required|string',
                 'tipe' => 'sometimes|required|in:customer,supplier',
                 'total_tagihan' => 'sometimes|required|numeric',
                 'dp' => 'nullable|numeric',
-                'status' => 'nullable|in:belum_lunas,lunas',
                 'keterangan' => 'nullable|string'
             ]);
+            $totalTagihan = $request->total_tagihan ?? $utangPiutang->total_tagihan;
+            $dp = $request->dp ?? $utangPiutang->dp;
+            $sisaPembayaran = $totalTagihan - $dp;
+            $status = $sisaPembayaran <= 0 ? 'lunas' : 'belum_lunas';
 
-            // Hitung sisa pembayaran jika total_tagihan atau dp berubah
-            if ($request->has('total_tagihan') || $request->has('dp')) {
-                $totalTagihan = $request->total_tagihan ?? $utangPiutang->total_tagihan;
-                $dp = $request->dp ?? $utangPiutang->dp;
-                $validated['sisa_pembayaran'] = $totalTagihan - $dp;
-            }
+            $validated['sisa_pembayaran'] = $sisaPembayaran;
+
+            $validated['status'] = $status;
 
             $utangPiutang->update($validated);
 
             return response()->json([
+
                 'message' => 'Data utang piutang berhasil diupdate',
+
                 'data' => $utangPiutang->fresh()
             ]);
-            
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'message' => 'Validasi gagal',
