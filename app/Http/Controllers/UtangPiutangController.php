@@ -6,6 +6,7 @@ use App\Models\UtangPiutang;
 use App\Http\Requests\Storeutang_piutangRequest;
 use App\Http\Requests\Updateutang_piutangRequest;
 use Illuminate\Http\Request;
+use App\Models\Pemasukan;
 
 class UtangPiutangController extends Controller
 {
@@ -36,6 +37,7 @@ class UtangPiutangController extends Controller
     public function store(Request $request)
     {
         try {
+
             $request->validate([
                 'nama' => 'required|string',
                 'tipe' => 'required|in:customer,supplier',
@@ -43,8 +45,14 @@ class UtangPiutangController extends Controller
             ]);
 
             $dp = $request->dp ?? 0;
-            $sisaPembayaran = $request->total_tagihan - $dp;
-            $status = $sisaPembayaran <= 0 ? 'lunas' : 'belum_lunas';
+
+            $sisaPembayaran =
+                $request->total_tagihan - $dp;
+
+            $status =
+                $sisaPembayaran <= 0
+                ? 'lunas'
+                : 'belum_lunas';
 
             $utangPiutang = UtangPiutang::create([
                 'nama' => $request->nama,
@@ -57,11 +65,27 @@ class UtangPiutangController extends Controller
                 'created_by' => auth()->id(),
             ]);
 
+            if ($dp > 0) {
+
+                Pemasukan::create([
+                    'tanggal' => now(),
+                    'hari' => now()->translatedFormat('l'),
+                    'cash' => $dp,
+                    'transfer_bca' => 0,
+                    'qris_dana' => 0,
+                    'denda' => 0,
+                    'kerusakan' => 0,
+                    'dp' => $dp,
+                    'total_pemasukan' => $dp,
+                    'created_by' => auth()->id(),
+                ]);
+            }
+
             return response()->json([
                 'message' => 'Data utang piutang berhasil ditambahkan',
                 'data' => $utangPiutang
             ], 201);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Gagal menyimpan data',
@@ -98,38 +122,60 @@ class UtangPiutangController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
             $utangPiutang = UtangPiutang::findOrFail($id);
-
             $validated = $request->validate([
                 'nama' => 'sometimes|required|string',
-                'tipe' => 'sometimes|required|in:customer,supplier',
-                'total_tagihan' => 'sometimes|required|numeric',
-                'dp' => 'nullable|numeric',
-                'keterangan' => 'nullable|string'
+                'tipe' =>'sometimes|required|in:customer,supplier',
+                'total_tagihan' =>'sometimes|required|numeric',
+                'dp' =>'nullable|numeric',
+                'keterangan' =>'nullable|string'
             ]);
+
             $totalTagihan = $request->total_tagihan ?? $utangPiutang->total_tagihan;
+
             $dp = $request->dp ?? $utangPiutang->dp;
+
             $sisaPembayaran = $totalTagihan - $dp;
+
             $status = $sisaPembayaran <= 0 ? 'lunas' : 'belum_lunas';
 
             $validated['sisa_pembayaran'] = $sisaPembayaran;
 
             $validated['status'] = $status;
 
+            $sisaLama = $utangPiutang->sisa_pembayaran;
+
             $utangPiutang->update($validated);
 
+            if (
+                $status == 'lunas' && $sisaLama > 0
+            ) {
+
+                Pemasukan::create([
+                    'tanggal' => now(),
+                    'hari' => now()->translatedFormat('l'),
+                    'cash' => $sisaLama,
+                    'transfer_bca' => 0,
+                    'qris_dana' => 0,
+                    'denda' => 0,
+                    'kerusakan' => 0,
+                    'dp' => 0,
+                    'total_pemasukan' => $sisaLama,
+                    'created_by' => auth()->id(),
+                ]);
+            }
+
             return response()->json([
-
                 'message' => 'Data utang piutang berhasil diupdate',
-
                 'data' => $utangPiutang->fresh()
             ]);
+
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'message' => 'Validasi gagal',
                 'errors' => $e->errors()
             ], 422);
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Gagal mengupdate data',
