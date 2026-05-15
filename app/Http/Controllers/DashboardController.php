@@ -58,4 +58,32 @@ class DashboardController extends Controller
             'data_pengeluaran' => $pengeluaran
         ]);
     }
+
+    public function laporanBulanan(Request $request)
+    {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        $pemasukan = Pemasukan::whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->get();
+
+        $pengeluaran = Pengeluaran::whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->get();
+
+        $totalPemasukan =
+        $pemasukan->sum('total_pemasukan');
+
+        $totalPengeluaran = $pengeluaran->sum('nominal');
+
+        $saldoBersih = $totalPemasukan - $totalPengeluaran;
+
+        return response()->json([
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+            'total_pemasukan' => $totalPemasukan,
+            'total_pengeluaran' => $totalPengeluaran,
+            'saldo_bersih' => $saldoBersih,
+            'data_pemasukan' => $pemasukan,
+            'data_pengeluaran' => $pengeluaran
+        ]);
+
+    }
 }
