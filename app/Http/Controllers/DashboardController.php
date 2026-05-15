@@ -16,10 +16,16 @@ class DashboardController extends Controller
 
         $saldoBersih = $totalPemasukan - $totalPengeluaran;
 
-        return response()->json([
-            'total_pemasukan' => $totalPemasukan,
-            'total_pengeluaran' => $totalPengeluaran,
-            'saldo_bersih' => $saldoBersih
+        $jumlahTransaksi = Pemasukan::count() + Pengeluaran::count();
+
+         return response()->json([
+            'message' => 'Dashboard keuangan',
+            'data' => [
+                'total_pemasukan' => $totalPemasukan,
+                'total_pengeluaran' => $totalPengeluaran,
+                'saldo_bersih' => $saldoBersih,
+                'jumlah_transaksi' => $jumlahTransaksi
+            ]
         ]);
     }
 }
