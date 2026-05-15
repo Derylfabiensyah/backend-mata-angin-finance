@@ -13,6 +13,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/laporan/harian', [DashboardController::class, 'laporanHarian']);
     
     Route::apiResource('pemasukan', PemasukanController::class);
     Route::apiResource('pengeluaran', PengeluaranController::class);
