@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
@@ -85,5 +86,32 @@ class DashboardController extends Controller
             'data_pengeluaran' => $pengeluaran
         ]);
 
+    }
+
+    public function exportPdf()
+    {
+        $pemasukan = Pemasukan::all();
+        $pengeluaran = Pengeluaran::all();
+
+        $totalPemasukan = Pemasukan::sum('total_pemasukan');
+
+        $totalPengeluaran = Pengeluaran::sum('nominal');
+
+        $saldoBersih = $totalPemasukan - $totalPengeluaran;
+
+        $pdf = Pdf::loadView (
+            'laporan.pdf',
+            compact(
+                'pemasukan',
+                'pengeluaran',
+                'totalPemasukan',
+                'totalPengeluaran',
+                'saldoBersih'
+            )
+        );
+
+        return $pdf->download(
+            'laporan-keuangan.pdf'
+        );
     }
 }

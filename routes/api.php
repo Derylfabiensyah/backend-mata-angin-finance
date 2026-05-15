@@ -15,6 +15,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/laporan/harian', [DashboardController::class, 'laporanHarian']);
     Route::get('/laporan/bulanan', [DashboardController::class, 'laporanBulanan']);
+    Route::get('/laporan/export-pdf', [DashboardController::class, 'exportPdf']);
     
     Route::apiResource('pemasukan', PemasukanController::class);
     Route::apiResource('pengeluaran', PengeluaranController::class);
