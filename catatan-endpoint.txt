@@ -1,0 +1,84 @@
+AUTH
+
+Login
+POST
+/api/login
+
+
+DASHBOARD
+
+Dashboard
+GET
+/api/dashboard
+
+
+LAPORAN
+
+Laporan Harian
+GET
+/api/laporan/harian?tanggal=YYYY-MM-DD
+
+Laporan Bulanan
+GET
+/api/laporan/bulanan?bulan=MM&tahun=YYYY
+
+Export PDF
+GET
+/api/laporan/export-pdf
+
+
+PEMASUKAN
+
+Create Pemasukan
+POST
+/api/pemasukan
+
+Get All Pemasukan
+GET
+/api/pemasukan
+
+Update Pemasukan
+PUT
+/api/pemasukan/{pemasukan}
+
+Delete Pemasukan
+DELETE
+/api/pemasukan/{pemasukan}
+
+
+PENGELUARAN
+
+Create Pengeluaran
+POST
+/api/pengeluaran
+
+Get All Pengeluaran
+GET
+/api/pengeluaran
+
+Update Pengeluaran
+PUT
+/api/pengeluaran/{pengeluaran}
+
+Delete Pengeluaran
+DELETE
+/api/pengeluaran/{pengeluaran}
+
+
+UTANG PIUTANG
+
+Create Utang Piutang
+POST
+/api/utang-piutang
+
+Get All Utang Piutang
+GET
+/api/utang-piutang
+
+Update Utang Piutang
+PUT
+/api/utang-piutang/{utangPiutang}
+
+Delete Utang Piutang
+DELETE
+/api/utang-piutang/{utangPiutang}
