@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Buat user kasir
+        // Buat user operator
         User::create([
             'name' => 'Operator',
             'email' => 'operator@example.com',
             'password' => bcrypt('password123'),
-            'role' => 'kasir',
+            'role' => 'operator',
         ]);
     }
 }
