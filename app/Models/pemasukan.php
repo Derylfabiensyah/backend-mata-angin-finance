@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Pemasukan extends Model
 {
     use HasFactory;
-
     protected $table = 'pemasukans';
 
     protected $fillable = [
