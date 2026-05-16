@@ -2,12 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\UtangPiutangController;
 use App\Http\Controllers\DashboardController;
-use App\Models\User;
 
 Route::post('/login', [AuthController::class, 'login']);
 
