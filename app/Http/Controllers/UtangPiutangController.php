@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UtangPiutang;
+
 use App\Http\Requests\Storeutang_piutangRequest;
 use App\Http\Requests\Updateutang_piutangRequest;
 use Illuminate\Http\Request;
 use App\Models\Pemasukan;
+use App\Models\UtangPiutang;
 
 class UtangPiutangController extends Controller
 {
