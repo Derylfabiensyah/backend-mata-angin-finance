@@ -23,6 +23,18 @@ Route::get('/test-db', function () {
     }
 });
 
+Route::get('/buat-admin', function () {
+
+    $user = User::create([
+        'name' => 'Admin',
+        'email' => 'admin@example.com',
+        'password' => Hash::make('password123'),
+        'role' => 'admin'
+    ]);
+
+    return $user;
+});
+
 Route::middleware([
     'auth:sanctum',
     'role:admin'
