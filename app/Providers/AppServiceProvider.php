@@ -19,6 +19,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+       if (!User::where('email', 'admin@example.com')->exists()) {
+
+            User::create([
+                'name' => 'Admin',
+                'email' => 'admin@example.com',
+                'password' => Hash::make('password123'),
+                'role' => 'admin',
+            ]);
+        }
+
+        if (!User::where('email', 'operator@example.com')->exists()) {
+
+            User::create([
+                'name' => 'Operator',
+                'email' => 'operator@example.com',
+                'password' => Hash::make('password123'),
+                'role' => 'operator',
+            ]);
+        }
     }
 }
