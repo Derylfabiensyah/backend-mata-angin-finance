@@ -90,28 +90,34 @@ class DashboardController extends Controller
 
     public function exportPdf()
     {
-        $pemasukan = Pemasukan::all();
-        $pengeluaran = Pengeluaran::all();
+        try {
+            $pemasukan = Pemasukan::all();
+            $pengeluaran = Pengeluaran::all();
 
-        $totalPemasukan = Pemasukan::sum('total_pemasukan');
+            $totalPemasukan = Pemasukan::sum('total_pemasukan');
+            $totalPengeluaran = Pengeluaran::sum('nominal');
+            $saldoBersih = $totalPemasukan - $totalPengeluaran;
 
-        $totalPengeluaran = Pengeluaran::sum('nominal');
+            $pdf = Pdf::loadView(
+                'laporan.pdf',
+                compact(
+                    'pemasukan',
+                    'pengeluaran',
+                    'totalPemasukan',
+                    'totalPengeluaran',
+                    'saldoBersih'
+                )
+            );
 
-        $saldoBersih = $totalPemasukan - $totalPengeluaran;
-
-        $pdf = Pdf::loadView (
-            'laporan.pdf',
-            compact(
-                'pemasukan',
-                'pengeluaran',
-                'totalPemasukan',
-                'totalPengeluaran',
-                'saldoBersih'
-            )
-        );
-
-        return $pdf->download(
-            'laporan-keuangan.pdf'
-        );
+            return $pdf->download('laporan-keuangan.pdf');
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Gagal generate PDF',
+                'error' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
+            ], 500);
+        }
     }
 }
