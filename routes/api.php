@@ -7,6 +7,7 @@ use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\UtangPiutangController;
 use App\Http\Controllers\DashboardController;
+use App\Models\User;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -21,6 +22,10 @@ Route::get('/test-db', function () {
             'error' => $e->getMessage()
         ]);
     }
+});
+
+Route::get('/cek-user', function () {
+    return User::all();
 });
 
 Route::middleware([
