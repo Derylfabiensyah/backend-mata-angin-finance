@@ -24,15 +24,14 @@ Route::get('/test-db', function () {
 });
 
 Route::get('/buat-admin', function () {
-
-    $user = User::create([
+    \App\Models\User::create([
         'name' => 'Admin',
         'email' => 'admin@example.com',
-        'password' => Hash::make('password123'),
-        'role' => 'admin'
+        'password' => bcrypt('password123'),
+        'role' => 'admin',
     ]);
 
-    return $user;
+    return 'admin berhasil dibuat';
 });
 
 Route::middleware([
