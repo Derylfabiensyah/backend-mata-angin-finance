@@ -36,6 +36,16 @@ Route::middleware([
     Route::get('/laporan/harian', [DashboardController::class,'laporanHarian']);
     Route::get('/laporan/bulanan', [DashboardController::class,'laporanBulanan']);
     Route::get('/laporan/export-pdf', [DashboardController::class,'exportPdf']);
+    Route::get('/laporan/test-pdf-data', function() {
+        $pemasukan = \App\Models\Pemasukan::all();
+        $pengeluaran = \App\Models\Pengeluaran::all();
+        return response()->json([
+            'pemasukan_count' => $pemasukan->count(),
+            'pengeluaran_count' => $pengeluaran->count(),
+            'pemasukan' => $pemasukan,
+            'pengeluaran' => $pengeluaran
+        ]);
+    });
 
     Route::get('/pemasukan', [PemasukanController::class,'index']);
     Route::get('/pemasukan/{pemasukan}', [PemasukanController::class,'show']);

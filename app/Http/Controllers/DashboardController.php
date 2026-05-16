@@ -91,12 +91,26 @@ class DashboardController extends Controller
     public function exportPdf()
     {
         try {
+            // Log untuk debugging
+            \Log::info('Export PDF started');
+            
             $pemasukan = Pemasukan::all();
             $pengeluaran = Pengeluaran::all();
+
+            \Log::info('Data fetched', [
+                'pemasukan_count' => $pemasukan->count(),
+                'pengeluaran_count' => $pengeluaran->count()
+            ]);
 
             $totalPemasukan = Pemasukan::sum('total_pemasukan');
             $totalPengeluaran = Pengeluaran::sum('nominal');
             $saldoBersih = $totalPemasukan - $totalPengeluaran;
+
+            \Log::info('Totals calculated', [
+                'total_pemasukan' => $totalPemasukan,
+                'total_pengeluaran' => $totalPengeluaran,
+                'saldo_bersih' => $saldoBersih
+            ]);
 
             $pdf = Pdf::loadView(
                 'laporan.pdf',
@@ -109,9 +123,18 @@ class DashboardController extends Controller
                 )
             );
 
+            \Log::info('PDF generated successfully');
+
             return $pdf->download('laporan-keuangan.pdf');
             
         } catch (\Exception $e) {
+            \Log::error('PDF generation failed', [
+                'error' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return response()->json([
                 'message' => 'Gagal generate PDF',
                 'error' => $e->getMessage(),
