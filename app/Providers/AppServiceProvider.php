@@ -21,22 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        User::firstOrCreate(
-            ['email' => 'admin@example.com'],
-            [
-                'name' => 'Admin',
-                'password' => Hash::make('password123'),
-                'role' => 'admin',
-            ]
-        );
-
-        User::firstOrCreate(
-            ['email' => 'operator@example.com'],
-            [
-                'name' => 'Operator',
-                'password' => Hash::make('password123'),
-                'role' => 'operator',
-            ]
-        );
+        //
     }
 }

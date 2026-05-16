@@ -10,18 +10,17 @@ use App\Http\Controllers\DashboardController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/create-admin', function () {
-
-    User::updateOrCreate(
-        ['email' => 'admin@example.com'],
-        [
-            'name' => 'Admin',
-            'password' => Hash::make('password123'),
-            'role' => 'admin',
-        ]
-    );
-
-    return 'Admin berhasil dibuat';
+Route::get('/test-db', function () {
+    try {
+        DB::connection()->getPdo();
+        return response()->json([
+            'message' => 'Database connected'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => $e->getMessage()
+        ]);
+    }
 });
 
 Route::middleware([
