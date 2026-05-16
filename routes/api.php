@@ -10,6 +10,20 @@ use App\Http\Controllers\DashboardController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/create-admin', function () {
+
+    User::updateOrCreate(
+        ['email' => 'admin@example.com'],
+        [
+            'name' => 'Admin',
+            'password' => Hash::make('password123'),
+            'role' => 'admin',
+        ]
+    );
+
+    return 'Admin berhasil dibuat';
+});
+
 Route::middleware([
     'auth:sanctum',
     'role:admin'
