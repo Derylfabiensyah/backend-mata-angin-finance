@@ -23,17 +23,6 @@ Route::get('/test-db', function () {
     }
 });
 
-Route::get('/buat-admin', function () {
-    \App\Models\User::create([
-        'name' => 'Admin',
-        'email' => 'admin@example.com',
-        'password' => bcrypt('password123'),
-        'role' => 'admin',
-    ]);
-
-    return 'admin berhasil dibuat';
-});
-
 Route::middleware([
     'auth:sanctum',
     'role:admin'
