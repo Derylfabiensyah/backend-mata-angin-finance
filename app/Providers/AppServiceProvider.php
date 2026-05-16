@@ -21,24 +21,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       if (!User::where('email', 'admin@example.com')->exists()) {
-
-            User::create([
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
                 'name' => 'Admin',
-                'email' => 'admin@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'admin',
-            ]);
-        }
+            ]
+        );
 
-        if (!User::where('email', 'operator@example.com')->exists()) {
-
-            User::create([
+        User::firstOrCreate(
+            ['email' => 'operator@example.com'],
+            [
                 'name' => 'Operator',
-                'email' => 'operator@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'operator',
-            ]);
-        }
+            ]
+        );
     }
 }
